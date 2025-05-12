@@ -8,9 +8,11 @@
 import UIKit
 
 class SignedInView: UIView {
+    
     private let messageLabel: UILabel = {
         let label = UILabel()
         
+        label.textColor = .label
         label.font = .boldSystemFont(ofSize: 27)
         
         return label

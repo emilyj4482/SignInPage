@@ -12,13 +12,15 @@ protocol StartButtonDelegate: AnyObject {
 }
 
 class StartView: UIView {
+    
     private weak var delegate: StartButtonDelegate?
     
     private lazy var startButton: UIButton = {
         let button = UIButton()
         
         button.setTitle("시작하기", for: .normal)
-        button.setTitleColor(.label, for: .normal)
+        button.setTitleColor(.systemBackground, for: .normal)
+        button.backgroundColor = .systemMint
         button.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
         
         return button
@@ -34,6 +36,11 @@ class StartView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        startButton.layer.cornerRadius = startButton.bounds.width / 15
+    }
+    
     func setDelegate(delegate: StartButtonDelegate) {
         self.delegate = delegate
     }
@@ -42,6 +49,8 @@ class StartView: UIView {
         NSLayoutConstraint.activate([
             startButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             startButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            startButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            startButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.08)
         ])
     }
     
