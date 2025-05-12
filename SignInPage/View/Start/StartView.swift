@@ -12,8 +12,7 @@ protocol StartButtonDelegate: AnyObject {
 }
 
 class StartView: UIView {
-    
-    weak var delegate: StartButtonDelegate?
+    private weak var delegate: StartButtonDelegate?
     
     private lazy var startButton: UIButton = {
         let button = UIButton()
@@ -27,7 +26,7 @@ class StartView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubviews()
+        setupSubviews([startButton])
         layout()
     }
     
@@ -39,16 +38,7 @@ class StartView: UIView {
         self.delegate = delegate
     }
     
-    private func addSubviews() {
-        translatesAutoresizingMaskIntoConstraints = false
-        startButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        addSubviews([startButton])
-    }
-    
     private func layout() {
-        backgroundColor = .systemBackground
-        
         NSLayoutConstraint.activate([
             startButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             startButton.centerYAnchor.constraint(equalTo: centerYAnchor),

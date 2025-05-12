@@ -13,25 +13,12 @@ class StartViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureUI(with: containerView)
         setDelegate()
-        setupUI()
     }
     
     private func setDelegate() {
         containerView.setDelegate(delegate: self)
-    }
-    
-    private func setupUI() {
-        view.addSubview(containerView)
-        
-        let safeArea = view.safeAreaLayoutGuide
-        
-        NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            containerView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
-        ])
     }
 }
 
