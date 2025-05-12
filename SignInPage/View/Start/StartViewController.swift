@@ -24,6 +24,7 @@ class StartViewController: UIViewController {
 
 extension StartViewController: StartButtonDelegate {
     func startButtonTapped() {
-        print("start button tapped")
+        let vc = SignedInViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
