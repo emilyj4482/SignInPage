@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIViewController {
-    func configureUI(with containerView: UIView) {
+    func setupView(with containerView: UIView) {
         view.backgroundColor = .systemBackground
         
         view.addSubview(containerView)

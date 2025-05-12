@@ -14,8 +14,8 @@ class SignedInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureUI(with: containerView)
-        containerView.configure("에밀리")
+        setupView(with: containerView)
+        containerView.configureSubviews(with: "에밀리")
     }
     
     override func viewWillAppear(_ animated: Bool) {

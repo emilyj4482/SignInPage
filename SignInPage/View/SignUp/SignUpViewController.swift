@@ -13,6 +13,6 @@ class SignUpViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI(with: containerView)
+        setupView(with: containerView)
     }
 }

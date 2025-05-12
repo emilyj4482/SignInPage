@@ -33,7 +33,7 @@ class SignedInView: UIView {
         ])
     }
     
-    func configure(_ name: String) {
+    func configureSubviews(with name: String) {
         messageLabel.text = "\(name)님, 환영합니다 🤗"
     }
 }
