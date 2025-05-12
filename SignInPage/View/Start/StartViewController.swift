@@ -13,7 +13,12 @@ class StartViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setDelegate()
         setupUI()
+    }
+    
+    private func setDelegate() {
+        containerView.setDelegate(delegate: self)
     }
     
     private func setupUI() {
@@ -27,5 +32,11 @@ class StartViewController: UIViewController {
             containerView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
+    }
+}
+
+extension StartViewController: StartButtonDelegate {
+    func startButtonTapped() {
+        print("start button tapped")
     }
 }

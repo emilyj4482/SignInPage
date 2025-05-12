@@ -7,12 +7,20 @@
 
 import UIKit
 
+protocol StartButtonDelegate: AnyObject {
+    func startButtonTapped()
+}
+
 class StartView: UIView {
-    private let startButton: UIButton = {
+    
+    weak var delegate: StartButtonDelegate?
+    
+    private lazy var startButton: UIButton = {
         let button = UIButton()
         
         button.setTitle("시작하기", for: .normal)
         button.setTitleColor(.label, for: .normal)
+        button.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
         
         return button
     }()
@@ -25,6 +33,10 @@ class StartView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setDelegate(delegate: StartButtonDelegate) {
+        self.delegate = delegate
     }
     
     private func addSubviews() {
@@ -41,5 +53,9 @@ class StartView: UIView {
             startButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             startButton.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
+    }
+    
+    @objc private func startButtonTapped() {
+        delegate?.startButtonTapped()
     }
 }
