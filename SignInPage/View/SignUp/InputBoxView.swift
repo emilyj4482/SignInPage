@@ -7,6 +7,63 @@
 
 import UIKit
 
+class InputBoxView: UIStackView {
+    
+    let inputSort: InputSort
+    
+    private let inputTitleLabel: UILabel = {
+        let label = UILabel()
+        
+        label.textColor = .label
+        label.font = .preferredFont(forTextStyle: .subheadline)
+        
+        return label
+    }()
+    
+    private let inputTextField: UITextField = {
+        let textField = UITextField()
+        
+        textField.textColor = .label
+        textField.font = .preferredFont(forTextStyle: .body)
+        textField.backgroundColor = .systemGray6
+        textField.layer.cornerRadius = 4
+        
+        return textField
+    }()
+    
+    init(inputSort: InputSort) {
+        self.inputSort = inputSort
+        super.init(frame: .zero)
+        setupArrangedSubviews([inputTitleLabel, inputTextField])
+        layout()
+        configureSubviews()
+    }
+    
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func layout() {
+        axis = .vertical
+        alignment = .leading
+        spacing = 6
+        
+        NSLayoutConstraint.activate([
+            inputTextField.trailingAnchor.constraint(equalTo: trailingAnchor),
+            inputTextField.heightAnchor.constraint(equalToConstant: 35),
+            
+            heightAnchor.constraint(equalToConstant: 70)
+        ])
+    }
+    
+    private func configureSubviews() {
+        inputTitleLabel.text = inputSort.inputTitle
+        inputTextField.placeholder = inputSort.placeholder
+        inputTextField.keyboardType = inputSort.keyboardType
+        inputTextField.returnKeyType = inputSort.returnKeyType
+    }
+}
+
 enum InputSort {
     case email
     case password
@@ -43,65 +100,5 @@ enum InputSort {
         case .nickname: return .done
         default: return .next
         }
-    }
-}
-
-class InputBoxView: UIView {
-    
-    let inputSort: InputSort
-    
-    private let inputTitleLabel: UILabel = {
-        let label = UILabel()
-        
-        label.textColor = .label
-        label.font = .preferredFont(forTextStyle: .subheadline)
-        
-        return label
-    }()
-    
-    private let inputTextField: UITextField = {
-        let textField = UITextField()
-        
-        textField.textColor = .label
-        textField.font = .preferredFont(forTextStyle: .body)
-        textField.backgroundColor = .systemGray6
-        textField.layer.cornerRadius = 4
-        
-        return textField
-    }()
-    
-    init(inputSort: InputSort) {
-        self.inputSort = inputSort
-        super.init(frame: .zero)
-        setupSubviews([inputTitleLabel, inputTextField])
-        layout()
-        configureSubviews()
-        
-        
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func layout() {
-        NSLayoutConstraint.activate([
-            inputTitleLabel.topAnchor.constraint(equalTo: topAnchor),
-            inputTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            
-            inputTextField.topAnchor.constraint(equalTo: inputTitleLabel.bottomAnchor, constant: 6),
-            inputTextField.leadingAnchor.constraint(equalTo: leadingAnchor),
-            inputTextField.trailingAnchor.constraint(equalTo: trailingAnchor),
-            inputTextField.heightAnchor.constraint(equalToConstant: 35),
-            
-            heightAnchor.constraint(equalToConstant: 70)
-        ])
-    }
-    
-    private func configureSubviews() {
-        inputTitleLabel.text = inputSort.inputTitle
-        inputTextField.placeholder = inputSort.placeholder
-        inputTextField.keyboardType = inputSort.keyboardType
-        inputTextField.returnKeyType = inputSort.returnKeyType
     }
 }

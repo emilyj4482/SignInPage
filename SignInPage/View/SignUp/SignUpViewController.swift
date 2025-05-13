@@ -14,11 +14,26 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView(with: containerView)
+        setupNavigationTitle()
+        setupTapGesture()
         setupSignUpButton()
+    }
+    
+    private func setupNavigationTitle() {
+        navigationItem.title = "회원가입"
+    }
+    
+    private func setupTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(containerViewTapped))
+        containerView.addGestureRecognizer(tapGesture)
     }
     
     private func setupSignUpButton() {
         containerView.setupSignUpButton(delegate: self)
+    }
+    
+    @objc private func containerViewTapped() {
+        containerView.endEditing(true)
     }
 }
 

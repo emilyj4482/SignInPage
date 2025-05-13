@@ -7,30 +7,6 @@
 
 import UIKit
 
-enum ButtonSort {
-    case start
-    case signUp
-    case signOut
-    case deleteAccount
-    
-    var buttonTitle: String {
-        switch self {
-        case .start: return "시작하기"
-        case .signUp: return "회원가입"
-        case .signOut: return "로그아웃"
-        case .deleteAccount:  return "회원탈퇴"
-        }
-    }
-    
-    var backgroundColor: UIColor {
-        switch self {
-        case .start, .signUp: return .systemTeal
-        case .signOut: return .systemRed
-        case .deleteAccount:  return .systemGray4
-        }
-    }
-}
-
 class CustomButton: UIButton {
     
     let buttonSort: ButtonSort
@@ -59,5 +35,29 @@ class CustomButton: UIButton {
             widthAnchor.constraint(equalToConstant: 200),
             heightAnchor.constraint(equalToConstant: 60)
         ])
+    }
+}
+
+enum ButtonSort {
+    case start
+    case signUp
+    case signOut
+    case deleteAccount
+    
+    var buttonTitle: String {
+        switch self {
+        case .start: return "시작하기"
+        case .signUp: return "회원가입"
+        case .signOut: return "로그아웃"
+        case .deleteAccount:  return "회원탈퇴"
+        }
+    }
+    
+    var backgroundColor: UIColor {
+        switch self {
+        case .start, .signUp: return .systemTeal
+        case .signOut: return .systemRed
+        case .deleteAccount:  return .systemGray4
+        }
     }
 }
