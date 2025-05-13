@@ -11,7 +11,7 @@ extension UIViewController {
     func setupView(with containerView: UIView) {
         view.backgroundColor = .systemBackground
         
-        navigationController?.navigationBar.tintColor = .systemMint
+        navigationController?.navigationBar.tintColor = .systemTeal
         
         view.addSubview(containerView)
         

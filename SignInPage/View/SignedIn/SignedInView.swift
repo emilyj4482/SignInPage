@@ -18,9 +18,13 @@ class SignedInView: UIView {
         return label
     }()
     
+    private lazy var signOutButton: CustomButton = .init(buttonSort: .signOut)
+    
+    private lazy var deleteAccountButton: CustomButton = .init(buttonSort: .deleteAccount)
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupSubviews([messageLabel])
+        setupSubviews([messageLabel, signOutButton, deleteAccountButton])
         layout()
     }
     
@@ -31,7 +35,13 @@ class SignedInView: UIView {
     private func layout() {
         NSLayoutConstraint.activate([
             messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            messageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
+            messageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            
+            signOutButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            signOutButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -50),
+            
+            deleteAccountButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            deleteAccountButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 50)
         ])
     }
     
