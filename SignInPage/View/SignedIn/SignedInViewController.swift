@@ -16,10 +16,22 @@ class SignedInViewController: UIViewController {
         
         setupView(with: containerView)
         containerView.configureSubviews(with: "에밀리")
+        setupButtons()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        view.setNeedsLayout()
+    private func setupButtons() {
+        containerView.setupButtons(delegate: self)
+    }
+}
+
+extension SignedInViewController: SignedInDelegate {
+    func signOutButtonTapped() {
+        print("sign out button tapped")
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func deleteAccountButtonTapped() {
+        print("delete account button tapped")
+        navigationController?.popViewController(animated: true)
     }
 }

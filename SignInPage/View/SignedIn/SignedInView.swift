@@ -7,7 +7,14 @@
 
 import UIKit
 
+protocol SignedInDelegate: AnyObject {
+    func signOutButtonTapped()
+    func deleteAccountButtonTapped()
+}
+
 class SignedInView: UIView {
+    
+    private weak var delegate: SignedInDelegate?
     
     private let messageLabel: UILabel = {
         let label = UILabel()
@@ -32,6 +39,12 @@ class SignedInView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setupButtons(delegate: SignedInDelegate) {
+        signOutButton.addTarget(self, action: #selector(signOutButtonTapped), for: .touchUpInside)
+        deleteAccountButton.addTarget(self, action: #selector(deleteAccountButtonTapped), for: .touchUpInside)
+        self.delegate = delegate
+    }
+    
     private func layout() {
         NSLayoutConstraint.activate([
             messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
@@ -47,6 +60,16 @@ class SignedInView: UIView {
     
     func configureSubviews(with name: String) {
         messageLabel.text = "\(name)님, 환영합니다 🤗"
+    }
+}
+
+extension SignedInView {
+    @objc private func signOutButtonTapped() {
+        delegate?.signOutButtonTapped()
+    }
+    
+    @objc private func deleteAccountButtonTapped() {
+        delegate?.deleteAccountButtonTapped()
     }
 }
 
