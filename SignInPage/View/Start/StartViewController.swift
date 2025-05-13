@@ -22,9 +22,10 @@ class StartViewController: UIViewController {
     }
 }
 
-extension StartViewController: StartButtonDelegate {
+extension StartViewController: StartDelegate {
     func startButtonTapped() {
-        let vc = SignedInViewController()
+        // let vc = SignedInViewController()
+        let vc = SignUpViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
 }

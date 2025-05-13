@@ -9,12 +9,14 @@ import UIKit
 
 enum ButtonSort {
     case start
+    case signUp
     case signOut
     case deleteAccount
     
     var buttonTitle: String {
         switch self {
         case .start: return "시작하기"
+        case .signUp: return "회원가입"
         case .signOut: return "로그아웃"
         case .deleteAccount:  return "회원탈퇴"
         }
@@ -22,7 +24,7 @@ enum ButtonSort {
     
     var backgroundColor: UIColor {
         switch self {
-        case .start: return .systemTeal
+        case .start, .signUp: return .systemTeal
         case .signOut: return .systemRed
         case .deleteAccount:  return .systemGray4
         }

@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol StartButtonDelegate: AnyObject {
+protocol StartDelegate: AnyObject {
     func startButtonTapped()
 }
 
 class StartView: UIView {
     
-    private weak var delegate: StartButtonDelegate?
+    private weak var delegate: StartDelegate?
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -36,7 +36,7 @@ class StartView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupStartButton(delegate: StartButtonDelegate) {
+    func setupStartButton(delegate: StartDelegate) {
         startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
         self.delegate = delegate
     }
