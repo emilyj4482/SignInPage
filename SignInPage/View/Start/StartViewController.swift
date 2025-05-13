@@ -14,11 +14,11 @@ class StartViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView(with: containerView)
-        setDelegate()
+        setupStartButton()
     }
     
-    private func setDelegate() {
-        containerView.setDelegate(delegate: self)
+    private func setupStartButton() {
+        containerView.setupStartButton(delegate: self)
     }
 }
 

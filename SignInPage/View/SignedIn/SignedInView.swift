@@ -39,3 +39,7 @@ class SignedInView: UIView {
         messageLabel.text = "\(name)님, 환영합니다 🤗"
     }
 }
+
+#Preview {
+    SignedInViewController()
+}

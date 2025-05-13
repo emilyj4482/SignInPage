@@ -15,20 +15,20 @@ class StartView: UIView {
     
     private weak var delegate: StartButtonDelegate?
     
-    private lazy var startButton: UIButton = {
-        let button = UIButton()
+    private let titleLabel: UILabel = {
+        let label = UILabel()
         
-        button.setTitle("시작하기", for: .normal)
-        button.setTitleColor(.systemBackground, for: .normal)
-        button.backgroundColor = .systemMint
-        button.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
+        label.text = "버튼을 눌러 시작하세요 🙂"
+        label.font = .boldSystemFont(ofSize: 25)
         
-        return button
+        return label
     }()
+    
+    private lazy var startButton: CustomButton = .init(buttonSort: .start)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupSubviews([startButton])
+        setupSubviews([titleLabel, startButton])
         layout()
     }
     
@@ -36,25 +36,26 @@ class StartView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        startButton.layer.cornerRadius = startButton.bounds.width / 15
-    }
-    
-    func setDelegate(delegate: StartButtonDelegate) {
+    func setupStartButton(delegate: StartButtonDelegate) {
+        startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
         self.delegate = delegate
     }
     
     private func layout() {
         NSLayoutConstraint.activate([
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: startButton.topAnchor, constant: -150),
+            
             startButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            startButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            startButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
-            startButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.08)
+            startButton.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
     
     @objc private func startButtonTapped() {
         delegate?.startButtonTapped()
     }
+}
+
+#Preview {
+    StartViewController()
 }
