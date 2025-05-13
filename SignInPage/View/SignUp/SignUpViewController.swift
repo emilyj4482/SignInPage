@@ -39,7 +39,7 @@ class SignUpViewController: UIViewController {
 
 extension SignUpViewController: SignUpDelegate {
     func signUpButtonTapped() {
-        print("sign up button tapped")
+        // TODO: textfield 검사
         navigationController?.popViewController(animated: true)
     }
 }
