@@ -16,9 +16,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         window.backgroundColor = .systemBackground
         
+        // 모든 controller에서 같은 core data context를 바라보도록 단일 객체 주입
         let repository: UserRepository = .init()
-        
         window.rootViewController = UINavigationController(rootViewController: StartViewController(repository: repository))
+        
         window.makeKeyAndVisible()
         self.window = window
     }

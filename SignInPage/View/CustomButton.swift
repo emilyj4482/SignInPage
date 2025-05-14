@@ -7,8 +7,10 @@
 
 import UIKit
 
+// 앱의 모든 버튼을 공통으로 custom
 class CustomButton: UIButton {
     
+    // 버튼 종류
     let buttonSort: ButtonSort
     
     init(buttonSort: ButtonSort) {
@@ -22,6 +24,7 @@ class CustomButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // 버튼 종류에 따라 view configuring
     private func setupUI() {
         backgroundColor = buttonSort.backgroundColor
         setTitle(buttonSort.buttonTitle, for: .normal)

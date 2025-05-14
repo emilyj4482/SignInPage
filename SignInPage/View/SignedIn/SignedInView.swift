@@ -7,15 +7,18 @@
 
 import UIKit
 
+// controller에서 button action을 수행하기 위한 custom delegate
 protocol SignedInDelegate: AnyObject {
     func signOutButtonTapped()
     func deleteAccountButtonTapped()
 }
 
+// 로그인 성공 화면 view
 class SignedInView: UIView {
     
     private weak var delegate: SignedInDelegate?
     
+    // {닉네임} 님, 환영합니다.
     private let messageLabel: UILabel = {
         let label = UILabel()
         
@@ -25,8 +28,10 @@ class SignedInView: UIView {
         return label
     }()
     
+    // 로그아웃 버튼
     private lazy var signOutButton: CustomButton = .init(buttonSort: .signOut)
     
+    // 회원탈퇴 버튼
     private lazy var deleteAccountButton: CustomButton = .init(buttonSort: .deleteAccount)
     
     override init(frame: CGRect) {

@@ -7,28 +7,39 @@
 
 import UIKit
 
+// controller에서 button action을 수행하기 위한 custom delegate
 protocol SignUpDelegate: AnyObject {
     func signUpButtonTapped()
 }
 
+// 회원가입 화면 view
 class SignUpView: UIView {
     
     private weak var delegate: SignUpDelegate?
     
+    // 아이디(이메일) 입력 필드
     private let emailInputBox: InputBoxView = .init(inputSort: .email)
     
+    // 비밀번호 입력 필드
     private let passwordInputBox: InputBoxView = .init(inputSort: .password)
     
+    // 비밀번호 확인 입력 필드
     private let passwordConfirmationInputBox: InputBoxView = .init(inputSort: .passwordConfirmation)
     
+    // 닉네임 입력 필드
     private let nicknameInputBox: InputBoxView = .init(inputSort: .nickname)
     
+    // 회원가입 버튼
     private lazy var signUpButton: CustomButton = .init(buttonSort: .signUp)
     
+    /* controller에서 텍스트필트 입력값에 접근하기 위한 프로퍼티 */
+    
+    // 이메일 : 공백을 제거한 뒤 반환
     var emailText: String {
-        return emailInputBox.text
+        return emailInputBox.text.replacingOccurrences(of: " ", with: "")
     }
     
+    // 비밀번호 & 비밀번호 확인 입력값은 공백 허용 : 공백을 제거하면 공백 위치가 달라도 일치 판정 되기 때문
     var passwordText: String {
         return passwordInputBox.text
     }
@@ -37,8 +48,9 @@ class SignUpView: UIView {
         return passwordConfirmationInputBox.text
     }
     
+    // 닉네임 : 공백을 제거한 뒤 반환
     var nicknameText: String {
-        return nicknameInputBox.text
+        return nicknameInputBox.text.replacingOccurrences(of: " ", with: "")
     }
     
     override init(frame: CGRect) {
@@ -58,8 +70,10 @@ class SignUpView: UIView {
     }
     
     func setupSignUpButton(delegate: SignUpDelegate) {
+        // 회원가입 버튼 초기화 : 비활성 상태
         signUpButton.isEnabled = false
         signUpButton.backgroundColor = .systemGray4
+        // button action을 위한 설정
         signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         self.delegate = delegate
     }
@@ -71,6 +85,7 @@ class SignUpView: UIView {
         nicknameInputBox.textField.delegate = delegate
     }
     
+    // 각 텍스트필드 입력값이 변할 때마다 호출되어 회원가입 버튼 활성화 여부를 정한다
     func toggleButtonEnabled(to isEnabled: Bool) {
         signUpButton.isEnabled = isEnabled
         

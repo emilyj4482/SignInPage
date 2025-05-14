@@ -7,6 +7,7 @@
 
 import UIKit
 
+// 회원가입 화면 controller
 class SignUpViewController: UIViewController {
     
     let repository: UserRepository
@@ -34,6 +35,7 @@ class SignUpViewController: UIViewController {
         navigationItem.title = "회원가입"
     }
     
+    // 화면을 탭하면 키보드가 내려가도록 하기 위한 tap gesture recognizer 설정
     private func setupTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(containerViewTapped))
         containerView.addGestureRecognizer(tapGesture)
@@ -44,18 +46,21 @@ class SignUpViewController: UIViewController {
         containerView.setupSignUpButton(delegate: self)
     }
     
+    // 텍스트필드 외 view tap 시 키보드 dismiss
     @objc private func containerViewTapped() {
         containerView.endEditing(true)
     }
 }
 
 extension SignUpViewController: UITextFieldDelegate {
+    // textfield 입력값이 변할 때마다 호출 : 1. 모든 필드에 입력값이 있고, 2. 비밀번호 입력창과 확인창 값이 일치하면 >> 회원가입 버튼 enabled에 true, 아니면 false 할당
     func textFieldDidChangeSelection(_ textField: UITextField) {
         let isEveryFieldFilled = checkEmptyFields()
         
         containerView.toggleButtonEnabled(to: isEveryFieldFilled)
     }
     
+    // textfield 검사 함수 : 입력 여부, 비밀번호 일치 여부
     private func checkEmptyFields() -> Bool {
         guard
             !containerView.emailText.isEmpty,
@@ -72,12 +77,14 @@ extension SignUpViewController: UITextFieldDelegate {
 }
 
 extension SignUpViewController: SignUpDelegate {
+    // 회원가입 button tap 시 호출 : 모든 입력값 검사 통과 시 회원가입 성공, 아닐 시 실패 alert 호출 (성공 alert 확인 시 로그인 성공 화면으로 이동)
     func signUpButtonTapped() {
         let validationResult = checkInputBoxs()
         
         let alert = UIAlertController(title: validationResult.alertTitle, message: validationResult.alertMessage, preferredStyle: .alert)
         
         let success = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
+            // TODO: 로그인 성공 화면으로 이동
             self?.navigationController?.popViewController(animated: true)
         }
         
@@ -93,9 +100,11 @@ extension SignUpViewController: SignUpDelegate {
         present(alert, animated: true)
     }
     
+    // textfield 검사 함수 : 입력값 유효 여부
     private func checkInputBoxs() -> ValidationCase {
         let emailTextArray = containerView.emailText.map({ $0 })
         
+        // 이메일 검사 1 : 아이디는 이메일 주소여야 합니다. >> 영문 소문자와 숫자 조합만 허용, 입력값의 처음과 끝이 알파벳 소문자, @와 .가 한개씩만 존재
         guard
             let first = emailTextArray.first,
             let last = emailTextArray.last,
@@ -108,6 +117,7 @@ extension SignUpViewController: SignUpDelegate {
             return .invalidEmail
         }
         
+        // 이메일 검사 2 : 이메일 영역(@ 이후)을 제외하고 6자 이상 20자 이하
         guard
             let endIndex = emailTextArray.map({ String($0) }).firstIndex(of: "@"),
             (emailTextArray[emailTextArray.startIndex...endIndex].count >= 6 &&
@@ -116,10 +126,14 @@ extension SignUpViewController: SignUpDelegate {
             return .invalidEmail
         }
         
+        // TODO: 이메일 중복 검사
+        
+        // 비밀번호 검사 : 최소 8자 이상
         guard containerView.passwordText.count >= 8 else {
             return .passwordTooShort
         }
         
+        // 닉네임 검사 : 2자 이상 8자 이하
         guard containerView.nicknameText.count >= 2 && containerView.nicknameText.count <= 8 else {
             return .invalidNickname
         }
@@ -127,6 +141,7 @@ extension SignUpViewController: SignUpDelegate {
         return .valid
     }
     
+    // 회원가입 : 유효한 회원 정보를 core data에 저장
     private func createUser() {
         let user = User(email: containerView.emailText, password: containerView.passwordText, nickname: containerView.nicknameText)
         
@@ -137,8 +152,8 @@ extension SignUpViewController: SignUpDelegate {
 enum ValidationCase {
     case valid
     case invalidEmail   // 1. 영문 소문자로만 시작하고 2. 영문 소문자와 숫자로만 이루어져있고 3. @와 .를 모두 포함한 이메일 형식 4. @ 앞부분이 6자 이상 20자 이하 >> 가 아닌 경우
-    case emailAlreadyExists
-    case passwordTooShort
+    case emailAlreadyExists // 이메일이 중복인 경우
+    case passwordTooShort   // 비밀번호가 8자 미만인 경우
     case invalidNickname    // 닉네임이 2자 이상 8자 이하가 아닌 경우
     
     var alertTitle: String {

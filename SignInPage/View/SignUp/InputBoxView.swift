@@ -7,8 +7,10 @@
 
 import UIKit
 
+// 회원가입 화면에서 항목 이름 label + textfield 반복되는 영역 custom
 class InputBoxView: UIStackView {
     
+    // 입력 항목
     let inputSort: InputSort
     
     private let inputTitleLabel: UILabel = {
@@ -31,12 +33,14 @@ class InputBoxView: UIStackView {
         return textField
     }()
     
+    // 상위 객체에서 delegate 주입을 위해 textfield에 접근하기 위한 프로퍼티
     var textField: UITextField {
         return inputTextField
     }
     
+    // textfield 입력값에서 공백을 제거한 값을 반환하여 접근하기 위한 프로퍼티
     var text: String {
-        return inputTextField.text?.replacingOccurrences(of: " ", with: "") ?? ""
+        return inputTextField.text ?? ""
     }
     
     init(inputSort: InputSort) {
@@ -64,6 +68,7 @@ class InputBoxView: UIStackView {
         ])
     }
     
+    // 입력 항목 별로 view configuring
     private func configureSubviews() {
         inputTitleLabel.text = inputSort.inputTitle
         inputTextField.placeholder = inputSort.placeholder

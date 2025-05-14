@@ -7,10 +7,12 @@
 
 import UIKit
 
+// controller에서 button action을 수행하기 위한 custom delegate
 protocol StartDelegate: AnyObject {
     func startButtonTapped()
 }
 
+// 시작하기 화면 view
 class StartView: UIView {
     
     private weak var delegate: StartDelegate?
