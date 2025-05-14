@@ -84,8 +84,7 @@ extension SignUpViewController: SignUpDelegate {
         let alert = UIAlertController(title: validationResult.alertTitle, message: validationResult.alertMessage, preferredStyle: .alert)
         
         let success = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
-            // TODO: 로그인 성공 화면으로 이동
-            self?.navigationController?.popViewController(animated: true)
+            self?.pushToSignedInViewController()
         }
         
         let fail = UIAlertAction(title: "확인", style: .default)
@@ -98,6 +97,13 @@ extension SignUpViewController: SignUpDelegate {
         }
         
         present(alert, animated: true)
+    }
+    
+    // (회원가입 완료 후) 로그인 성공 화면으로 이동
+    private func pushToSignedInViewController() {
+        guard let user = repository.fetchUser() else { return }
+        let vc = SignedInViewController(repository: repository, user: user)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     // textfield 검사 함수 : 입력값 유효 여부

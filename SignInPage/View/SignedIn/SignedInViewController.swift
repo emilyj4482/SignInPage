@@ -34,8 +34,26 @@ class SignedInViewController: UIViewController {
         setupButtons()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        resetNavigationStack()
+    }
+    
     private func setupButtons() {
         containerView.setupButtons(delegate: self)
+    }
+    
+    // 회원가입 or 로그인 화면을 navigation stack에서 제거 (Back 버튼 눌렀을 때 시작화면으로 바로 돌아가기 위함)
+    private func resetNavigationStack() {
+        guard
+            var viewControllers = navigationController?.viewControllers,
+            viewControllers.count > 2
+        else {
+            return
+        }
+        
+        viewControllers.remove(at: 1)
+        navigationController?.setViewControllers(viewControllers, animated: false)
     }
 }
 
