@@ -72,7 +72,8 @@ class SignUpView: UIView {
     func setupSignUpButton(delegate: SignUpDelegate) {
         // 회원가입 버튼 초기화 : 비활성 상태
         signUpButton.isEnabled = false
-        signUpButton.backgroundColor = .systemGray4
+        signUpButton.backgroundColor = signUpButton.buttonSort.disabledBackgroundColor
+        
         // button action을 위한 설정
         signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         self.delegate = delegate

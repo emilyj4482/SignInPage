@@ -26,11 +26,38 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView(with: containerView)
-        setupSignInButton()
+        setupContainerView()
+        setupTapGesture()
     }
     
-    private func setupSignInButton() {
+    private func setupContainerView() {
+        containerView.setupTextFieldDelegate(with: self)
         containerView.setupSignInButton(delegate: self)
+    }
+    
+    // 화면을 탭하면 키보드가 내려가도록 하기 위한 tap gesture recognizer 설정
+    private func setupTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(containerViewTapped))
+        containerView.addGestureRecognizer(tapGesture)
+    }
+    
+    // 텍스트필드 외 view tap 시 키보드 dismiss
+    @objc private func containerViewTapped() {
+        containerView.endEditing(true)
+    }
+}
+
+extension SignInViewController: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        guard
+            !containerView.emailText.isEmpty,
+            !containerView.passwordText.isEmpty
+        else {
+            containerView.toggleSignInbuttonEnabled(to: false)
+            return
+        }
+        
+        containerView.toggleSignInbuttonEnabled(to: true)
     }
 }
 

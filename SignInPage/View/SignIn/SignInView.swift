@@ -47,6 +47,18 @@ class SignInView: UIView {
     
     private lazy var signInButton: CustomButton = .init(buttonSort: .signIn)
     
+    /* controller에서 텍스트필트 입력값에 접근하기 위한 프로퍼티 */
+    
+    // 이메일 : 공백을 제거한 뒤 반환
+    var emailText: String {
+        return emailInputBox.text.replacingOccurrences(of: " ", with: "")
+    }
+    
+    // 비밀번호 : 공백을 제거하지 않고 반환
+    var passwordText: String {
+        return passwordInputBox.text
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupSubviews([
@@ -63,10 +75,31 @@ class SignInView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setupTextFieldDelegate(with delegate: UITextFieldDelegate) {
+        emailInputBox.textField.delegate = delegate
+        passwordInputBox.textField.delegate = delegate
+    }
+    
     func setupSignInButton(delegate: SignInDelegate) {
+        // 로그인 버튼 초기화 : 비활성 상태
+        signInButton.isEnabled = false
+        signInButton.backgroundColor = signInButton.buttonSort.disabledBackgroundColor
+        
+        // button action을 위한 설정
         saveInfoButton.addTarget(self, action: #selector(saveInfoButtonTapped), for: .touchUpInside)
         signInButton.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
         self.delegate = delegate
+    }
+    
+    // 각 텍스트필드 입력값이 변할 때마다 호출되어 로그인 버튼 활성화 여부를 정한다
+    func toggleSignInbuttonEnabled(to isEnabled: Bool) {
+        signInButton.isEnabled = isEnabled
+        
+        if isEnabled {
+            signInButton.backgroundColor = signInButton.buttonSort.backgroundColor
+        } else {
+            signInButton.backgroundColor = signInButton.buttonSort.disabledBackgroundColor
+        }
     }
     
     private func layout() {
@@ -110,8 +143,4 @@ class SignInView: UIView {
     @objc private func signInButtonTapped() {
         delegate?.signInButtonTapped()
     }
-}
-
-#Preview {
-    SignInViewController(repository: UserRepository.init())
 }
