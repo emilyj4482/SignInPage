@@ -69,6 +69,7 @@ class InputBoxView: UIStackView {
         inputTextField.placeholder = inputSort.placeholder
         inputTextField.keyboardType = inputSort.keyboardType
         inputTextField.returnKeyType = inputSort.returnKeyType
+        inputTextField.isSecureTextEntry = inputSort.isSecureTextEntry
     }
 }
 
@@ -93,6 +94,13 @@ enum InputSort {
         case .password: return "최소 8자 이상으로 입력해주세요."
         case .passwordConfirmation: return "비밀번호를 한번 더 입력해주세요."
         case .nickname: return "닉네임을 입력해주세요."
+        }
+    }
+    
+    var isSecureTextEntry: Bool {
+        switch self {
+        case .password, .passwordConfirmation: return true
+        default: return false
         }
     }
     
