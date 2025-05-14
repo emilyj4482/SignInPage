@@ -35,15 +35,27 @@ class StartViewController: UIViewController {
 }
 
 extension StartViewController: StartDelegate {
-    // MARK: 시작하기 버튼 tap 시 회원 여부 검사하여 회원가입 또는 로그인 성공 화면으로 이동
+    // 시작하기 버튼 tap 시 로그인 정보 저장 여부 & 회원 존재 유무 검사하여 각 화면으로 이동
     func startButtonTapped() {
         var vc: UIViewController
         
-        if let user = repository.fetchUser() {
-            // vc = SignedInViewController(repository: repository, user: user)
-            vc = SignInViewController(repository: repository)
+        if repository.isLoginSaved {
+            // 로그인 정보 저장 O : 저장된 사용자 id 확인하여 로그인 성공 화면으로 이동
+            guard
+                let idFromUserDefaults = repository.savedUserID,
+                let url = URL(string: idFromUserDefaults),
+                let convertedID = repository.context.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: url),
+                let user = repository.fetchUser(with: convertedID)
+            else { return }
+            
+            vc = SignedInViewController(repository: repository, user: user)
         } else {
-            vc = SignUpViewController(repository: repository)
+            // 로그인 정보 저장 X : 가입한 회원 정보 있을 시 로그인 화면, 없을 시 회원가입 화면으로 이동
+            if repository.hasUsers {
+                vc = SignUpViewController(repository: repository)
+            } else {
+                vc = SignInViewController(repository: repository)
+            }
         }
         
         navigationController?.pushViewController(vc, animated: true)

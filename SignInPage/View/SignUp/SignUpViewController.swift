@@ -101,7 +101,7 @@ extension SignUpViewController: SignUpDelegate {
     
     // (회원가입 완료 후) 로그인 성공 화면으로 이동
     private func pushToSignedInViewController() {
-        guard let user = repository.fetchUser() else { return }
+        guard let user = repository.searchUser(with: containerView.emailText) else { return }
         let vc = SignedInViewController(repository: repository, user: user)
         navigationController?.pushViewController(vc, animated: true)
     }

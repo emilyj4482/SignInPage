@@ -59,6 +59,11 @@ class SignInView: UIView {
         return passwordInputBox.text
     }
     
+    // 로그인 정보 저장 여부
+    var saveLoginInfo: Bool {
+        return saveInfoButton.isSelected
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupSubviews([

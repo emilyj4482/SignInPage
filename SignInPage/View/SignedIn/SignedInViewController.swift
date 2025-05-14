@@ -58,15 +58,17 @@ class SignedInViewController: UIViewController {
 }
 
 extension SignedInViewController: SignedInDelegate {
-    // 로그아웃 버튼 tap : 다른 동작 없이 시작 화면으로 이동
+    // 로그아웃 버튼 tap : 로그인 정보 삭제한 뒤 시작 화면으로 이동
     func signOutButtonTapped() {
         print("[로그인 성공 화면] 로그아웃 button tapped")
+        repository.deleteLoginInfo()
         navigationController?.popViewController(animated: true)
     }
     
-    // 회원탈퇴 버튼 tap : 사용자 데이터를 core data에서 삭제 후 시작 화면으로 이동
+    // 회원탈퇴 버튼 tap : 로그인 정보 삭제 및 사용자 데이터를 core data에서 삭제 후 시작 화면으로 이동
     func deleteAccountButtonTapped() {
         print("[로그인 성공 화면] 회원탈퇴 button tapped")
+        repository.deleteLoginInfo()
         repository.deleteUser(user.objectID)
         navigationController?.popViewController(animated: true)
     }
