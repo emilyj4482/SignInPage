@@ -60,4 +60,8 @@ enum ButtonSort {
         case .deleteAccount:  return .systemGray4
         }
     }
+    
+    var disabledBackgroundColor: UIColor {
+        return .systemGray5
+    }
 }

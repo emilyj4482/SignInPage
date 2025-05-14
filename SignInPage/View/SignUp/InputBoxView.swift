@@ -31,6 +31,14 @@ class InputBoxView: UIStackView {
         return textField
     }()
     
+    var textField: UITextField {
+        return inputTextField
+    }
+    
+    var text: String {
+        return inputTextField.text?.replacingOccurrences(of: " ", with: "") ?? ""
+    }
+    
     init(inputSort: InputSort) {
         self.inputSort = inputSort
         super.init(frame: .zero)

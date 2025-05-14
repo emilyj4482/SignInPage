@@ -72,7 +72,3 @@ extension SignedInView {
         delegate?.deleteAccountButtonTapped()
     }
 }
-
-#Preview {
-    SignedInViewController()
-}

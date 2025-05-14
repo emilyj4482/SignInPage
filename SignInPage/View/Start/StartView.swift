@@ -55,7 +55,3 @@ class StartView: UIView {
         delegate?.startButtonTapped()
     }
 }
-
-#Preview {
-    StartViewController()
-}

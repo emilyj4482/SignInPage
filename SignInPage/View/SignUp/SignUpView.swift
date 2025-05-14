@@ -25,6 +25,22 @@ class SignUpView: UIView {
     
     private lazy var signUpButton: CustomButton = .init(buttonSort: .signUp)
     
+    var emailText: String {
+        return emailInputBox.text
+    }
+    
+    var passwordText: String {
+        return passwordInputBox.text
+    }
+    
+    var passwordConfirmationText: String {
+        return passwordConfirmationInputBox.text
+    }
+    
+    var nicknameText: String {
+        return nicknameInputBox.text
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupSubviews([
@@ -42,8 +58,27 @@ class SignUpView: UIView {
     }
     
     func setupSignUpButton(delegate: SignUpDelegate) {
+        signUpButton.isEnabled = false
+        signUpButton.backgroundColor = .systemGray4
         signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         self.delegate = delegate
+    }
+    
+    func setupTextFieldDelegate(with delegate: UITextFieldDelegate) {
+        emailInputBox.textField.delegate = delegate
+        passwordInputBox.textField.delegate = delegate
+        passwordConfirmationInputBox.textField.delegate = delegate
+        nicknameInputBox.textField.delegate = delegate
+    }
+    
+    func toggleButtonEnabled(to isEnabled: Bool) {
+        signUpButton.isEnabled = isEnabled
+        
+        if isEnabled {
+            signUpButton.backgroundColor = signUpButton.buttonSort.backgroundColor
+        } else {
+            signUpButton.backgroundColor = signUpButton.buttonSort.disabledBackgroundColor
+        }
     }
     
     private func layout() {
@@ -72,8 +107,4 @@ class SignUpView: UIView {
     @objc private func signUpButtonTapped() {
         delegate?.signUpButtonTapped()
     }
-}
-
-#Preview {
-    SignUpViewController()
 }

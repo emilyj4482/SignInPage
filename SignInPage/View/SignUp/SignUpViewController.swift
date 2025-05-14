@@ -16,7 +16,7 @@ class SignUpViewController: UIViewController {
         setupView(with: containerView)
         setupNavigationTitle()
         setupTapGesture()
-        setupSignUpButton()
+        setupdelegates()
     }
     
     private func setupNavigationTitle() {
@@ -28,7 +28,8 @@ class SignUpViewController: UIViewController {
         containerView.addGestureRecognizer(tapGesture)
     }
     
-    private func setupSignUpButton() {
+    private func setupdelegates() {
+        containerView.setupTextFieldDelegate(with: self)
         containerView.setupSignUpButton(delegate: self)
     }
     
@@ -37,9 +38,72 @@ class SignUpViewController: UIViewController {
     }
 }
 
+extension SignUpViewController: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        let isEveryFieldFilled = checkEmptyFields()
+        
+        containerView.toggleButtonEnabled(to: isEveryFieldFilled)
+    }
+    
+    private func checkEmptyFields() -> Bool {
+        guard
+            !containerView.emailText.isEmpty,
+            !containerView.passwordText.isEmpty,
+            !containerView.passwordConfirmationText.isEmpty,
+            !containerView.nicknameText.isEmpty,
+            containerView.passwordText == containerView.passwordConfirmationText
+        else {
+            return false
+        }
+        
+        return true
+    }
+}
+
 extension SignUpViewController: SignUpDelegate {
     func signUpButtonTapped() {
-        // TODO: textfield 검사
-        navigationController?.popViewController(animated: true)
+        let validationResult = checkInputBoxs()
+        
+        if validationResult == .valid {
+            print(validationResult.message)
+            // TODO: 회원정보 저장
+            navigationController?.popViewController(animated: true)
+        } else {
+            print(validationResult.message)
+        }
+    }
+    
+    private func checkInputBoxs() -> ValidationCase {
+        let emailTextArray = containerView.emailText.map({ $0 })
+        
+        guard
+            let first = emailTextArray.first,
+            let last = emailTextArray.last,
+            first.isLowercase &&
+            last.isLowercase &&
+            emailTextArray.filter({ $0 == "@" }).count == 1 &&
+            emailTextArray.filter({ $0 == "." }).count == 1 &&
+            emailTextArray.filter({ $0 != "@" && $0 != "." && !$0.isLowercase && !$0.isNumber}).count == 0
+        else {
+            return .invalidEmail
+        }
+        
+        guard
+            let endIndex = emailTextArray.map({ String($0) }).firstIndex(of: "@"),
+            (emailTextArray[emailTextArray.startIndex...endIndex].count >= 6 &&
+             emailTextArray[emailTextArray.startIndex...endIndex].count <= 20)
+        else {
+            return .invalidEmail
+        }
+        
+        guard containerView.passwordText.count >= 8 else {
+            return .passwordTooShort
+        }
+        
+        guard containerView.nicknameText.count >= 2 && containerView.nicknameText.count <= 8 else {
+            return .invalidNickname
+        }
+        
+        return .valid
     }
 }
