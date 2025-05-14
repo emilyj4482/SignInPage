@@ -62,6 +62,12 @@ extension SignInViewController: UITextFieldDelegate {
 }
 
 extension SignInViewController: SignInDelegate {
+    // 회원가입 버튼 tap : 회원가입 화면으로 이동
+    func signUpButtonTapped() {
+        let vc = SignUpViewController(repository: repository)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     // 로그인 버튼 tap : 입력값 검사 결과에 따라 로그인 성공(화면으로 이동) 또는 실패(alert 호출) 동작 결정
     func signInButtonTapped() {
         let result = checkInputBoxs()

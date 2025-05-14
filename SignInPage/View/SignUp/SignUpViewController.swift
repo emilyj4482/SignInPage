@@ -31,6 +31,11 @@ class SignUpViewController: UIViewController {
         setupTapGesture()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        resetNavigationStack()
+    }
+    
     private func setupNavigationTitle() {
         navigationItem.title = "회원가입"
     }
@@ -49,6 +54,19 @@ class SignUpViewController: UIViewController {
     // 텍스트필드 외 view tap 시 키보드 dismiss
     @objc private func containerViewTapped() {
         containerView.endEditing(true)
+    }
+    
+    // navigation stack에 화면이 3개 이상 쌓일 경우 두번째 화면 삭제 (Back 버튼 눌렀을 때 시작화면으로 바로 돌아가기 위함)
+    private func resetNavigationStack() {
+        guard
+            var viewControllers = navigationController?.viewControllers,
+            viewControllers.count > 2
+        else {
+            return
+        }
+        
+        viewControllers.remove(at: 1)
+        navigationController?.setViewControllers(viewControllers, animated: false)
     }
 }
 

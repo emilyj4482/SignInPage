@@ -27,11 +27,8 @@ class SignedInViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupView(with: containerView)
-        // 전달 받은 사용자의 닉네임을 label에 표시
-        containerView.configureSubviews(with: user.nickname ?? "사용자")
-        setupButtons()
+        setupContainerView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,11 +36,13 @@ class SignedInViewController: UIViewController {
         resetNavigationStack()
     }
     
-    private func setupButtons() {
+    private func setupContainerView() {
+        // 전달 받은 사용자의 닉네임을 label에 표시
+        containerView.configureSubviews(with: user.nickname ?? "사용자")
         containerView.setupButtons(delegate: self)
     }
     
-    // 회원가입 or 로그인 화면을 navigation stack에서 제거 (Back 버튼 눌렀을 때 시작화면으로 바로 돌아가기 위함)
+    // navigation stack에 화면이 3개 이상 쌓일 경우 두번째 화면 삭제 (Back 버튼 눌렀을 때 시작화면으로 바로 돌아가기 위함)
     private func resetNavigationStack() {
         guard
             var viewControllers = navigationController?.viewControllers,

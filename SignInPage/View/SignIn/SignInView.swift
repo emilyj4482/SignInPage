@@ -9,7 +9,7 @@ import UIKit
 
 // controller에서 button action을 수행하기 위한 custom delegate
 protocol SignInDelegate: AnyObject {
-    // func saveInfoButtonTapped()
+    func signUpButtonTapped()
     func signInButtonTapped()
 }
 
@@ -32,7 +32,7 @@ class SignInView: UIView {
     
     private let passwordInputBox: InputBoxView = .init(inputSort: .password)
     
-    private let saveInfoButton: UIButton = {
+    private lazy var saveInfoButton: UIButton = {
         let button = UIButton()
         
         button.configuration = .tinted()
@@ -41,6 +41,17 @@ class SignInView: UIView {
         button.configuration?.title = "로그인 정보 저장"
         button.configuration?.image = UIImage(systemName: "circle")
         button.configuration?.imagePadding = 6
+        
+        return button
+    }()
+    
+    private lazy var signUpButton: UIButton = {
+        let button = UIButton()
+        
+        button.configuration = .tinted()
+        button.configuration?.baseBackgroundColor = .systemCyan.withAlphaComponent(0.5)
+        button.configuration?.baseForegroundColor = .systemCyan
+        button.configuration?.title = "회원가입"
         
         return button
     }()
@@ -71,6 +82,7 @@ class SignInView: UIView {
             emailInputBox,
             passwordInputBox,
             saveInfoButton,
+            signUpButton,
             signInButton
         ])
         layout()
@@ -92,6 +104,7 @@ class SignInView: UIView {
         
         // button action을 위한 설정
         saveInfoButton.addTarget(self, action: #selector(saveInfoButtonTapped), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         signInButton.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
         self.delegate = delegate
     }
@@ -123,8 +136,11 @@ class SignInView: UIView {
             saveInfoButton.topAnchor.constraint(equalTo: passwordInputBox.bottomAnchor, constant: 40),
             saveInfoButton.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             
+            signUpButton.leadingAnchor.constraint(equalTo: saveInfoButton.trailingAnchor, constant: 10),
+            signUpButton.centerYAnchor.constraint(equalTo: saveInfoButton.centerYAnchor),
+            
             signInButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            signInButton.topAnchor.constraint(equalTo: saveInfoButton.bottomAnchor, constant: 20)
+            signInButton.topAnchor.constraint(equalTo: saveInfoButton.bottomAnchor, constant: 30)
         ])
     }
     
@@ -143,6 +159,10 @@ class SignInView: UIView {
     @objc private func saveInfoButtonTapped() {
         saveInfoButton.isSelected.toggle()
         toggleSaveInfoButtonImage(with: saveInfoButton.isSelected)
+    }
+    
+    @objc private func signUpButtonTapped() {
+        delegate?.signUpButtonTapped()
     }
     
     @objc private func signInButtonTapped() {
