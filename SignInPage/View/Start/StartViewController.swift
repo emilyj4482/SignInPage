@@ -9,6 +9,17 @@ import UIKit
 
 class StartViewController: UIViewController {
     
+    let repository: UserRepository
+    
+    init(repository: UserRepository) {
+        self.repository = repository
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private let containerView: StartView = .init()
 
     override func viewDidLoad() {
@@ -24,8 +35,14 @@ class StartViewController: UIViewController {
 
 extension StartViewController: StartDelegate {
     func startButtonTapped() {
-        // let vc = SignedInViewController()
-        let vc = SignUpViewController()
+        var vc: UIViewController
+        
+        if let user = repository.fetchUser() {
+            vc = SignedInViewController(repository: repository, user: user)
+        } else {
+            vc = SignUpViewController(repository: repository)
+        }
+        
         navigationController?.pushViewController(vc, animated: true)
     }
 }

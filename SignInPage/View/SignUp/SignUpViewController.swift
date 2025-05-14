@@ -9,6 +9,17 @@ import UIKit
 
 class SignUpViewController: UIViewController {
     
+    let repository: UserRepository
+    
+    init(repository: UserRepository) {
+        self.repository = repository
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private let containerView: SignUpView = .init()
 
     override func viewDidLoad() {
@@ -66,7 +77,7 @@ extension SignUpViewController: SignUpDelegate {
         
         if validationResult == .valid {
             print(validationResult.message)
-            // TODO: 회원정보 저장
+            createUser()
             navigationController?.popViewController(animated: true)
         } else {
             print(validationResult.message)
@@ -105,6 +116,12 @@ extension SignUpViewController: SignUpDelegate {
         }
         
         return .valid
+    }
+    
+    private func createUser() {
+        let user = User(email: containerView.emailText, password: containerView.passwordText, nickname: containerView.nicknameText)
+        
+        repository.addUser(user)
     }
 }
 
