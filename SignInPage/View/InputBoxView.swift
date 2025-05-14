@@ -7,7 +7,7 @@
 
 import UIKit
 
-// 회원가입 화면에서 항목 이름 label + textfield 반복되는 영역 custom
+// 회원가입, 로그인 화면에서 항목 이름 label + textfield 반복되는 영역 custom
 class InputBoxView: UIStackView {
     
     // 입력 항목

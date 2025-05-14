@@ -44,6 +44,7 @@ class CustomButton: UIButton {
 enum ButtonSort {
     case start
     case signUp
+    case signIn
     case signOut
     case deleteAccount
     
@@ -51,6 +52,7 @@ enum ButtonSort {
         switch self {
         case .start: return "시작하기"
         case .signUp: return "회원가입"
+        case .signIn: return "로그인"
         case .signOut: return "로그아웃"
         case .deleteAccount:  return "회원탈퇴"
         }
@@ -58,7 +60,7 @@ enum ButtonSort {
     
     var backgroundColor: UIColor {
         switch self {
-        case .start, .signUp: return .systemTeal
+        case .start, .signUp, .signIn: return .systemTeal
         case .signOut: return .systemRed
         case .deleteAccount:  return .systemGray4
         }
