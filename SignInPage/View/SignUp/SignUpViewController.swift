@@ -132,7 +132,10 @@ extension SignUpViewController: SignUpDelegate {
             return .invalidEmail
         }
         
-        // TODO: 이메일 중복 검사
+        // 이메일 중복 검사
+        guard repository.searchUser(with: containerView.emailText) == nil else {
+            return .emailAlreadyExists
+        }
         
         // 비밀번호 검사 : 최소 8자 이상
         guard containerView.passwordText.count >= 8 else {

@@ -52,9 +52,9 @@ extension StartViewController: StartDelegate {
         } else {
             // 로그인 정보 저장 X : 가입한 회원 정보 있을 시 로그인 화면, 없을 시 회원가입 화면으로 이동
             if repository.hasUsers {
-                vc = SignUpViewController(repository: repository)
-            } else {
                 vc = SignInViewController(repository: repository)
+            } else {
+                vc = SignUpViewController(repository: repository)
             }
         }
         
