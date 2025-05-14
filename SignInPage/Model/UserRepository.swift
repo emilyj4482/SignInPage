@@ -9,7 +9,7 @@ import CoreData
 
 final class UserRepository {
     
-    var context: NSManagedObjectContext
+    private var context: NSManagedObjectContext
     
     init() {
         let persistentContainer = NSPersistentContainer(name: CDKey.container.rawValue)

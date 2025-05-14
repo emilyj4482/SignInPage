@@ -75,13 +75,22 @@ extension SignUpViewController: SignUpDelegate {
     func signUpButtonTapped() {
         let validationResult = checkInputBoxs()
         
-        if validationResult == .valid {
-            print(validationResult.message)
-            createUser()
-            navigationController?.popViewController(animated: true)
-        } else {
-            print(validationResult.message)
+        let alert = UIAlertController(title: validationResult.alertTitle, message: validationResult.alertMessage, preferredStyle: .alert)
+        
+        let success = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
         }
+        
+        let fail = UIAlertAction(title: "확인", style: .default)
+        
+        if validationResult == .valid {
+            createUser()
+            alert.addAction(success)
+        } else {
+            alert.addAction(fail)
+        }
+        
+        present(alert, animated: true)
     }
     
     private func checkInputBoxs() -> ValidationCase {
@@ -132,7 +141,14 @@ enum ValidationCase {
     case passwordTooShort
     case invalidNickname    // 닉네임이 2자 이상 8자 이하가 아닌 경우
     
-    var message: String {
+    var alertTitle: String {
+        switch self {
+        case .valid: return "회원가입 성공"
+        default: return "회원가입 실패"
+        }
+    }
+    
+    var alertMessage: String {
         switch self {
         case .valid:
             return "회원가입이 완료되었습니다."
