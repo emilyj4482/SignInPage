@@ -50,3 +50,4 @@
 | <img src="https://github.com/user-attachments/assets/5204583f-1981-4116-b841-299c34f92aa3" width=320> | 1. `로그인 성공 화면`에는 사용자의 `닉네임`이 표시됩니다.<br>2. `로그아웃` 버튼을 누르면 `시작하기 화면`으로 돌아갑니다.<br>3. 이미 가입했던 이메일로 가입을 시도하면 중복 검사에 걸려 실패합니다. |
 | <img src="https://github.com/user-attachments/assets/6bd2d401-8f11-4bff-be03-ae46150008d4" width=320> | 1. 중복되지 않은 이메일로 새 계정을 생성합니다.<br>2. 회원탈퇴를 한 뒤 로그인 시도하면 존재하지 않는 아이디기 때문에 로그인에 실패합니다. |
 | <img src="https://github.com/user-attachments/assets/e8a6ad7b-42be-4730-bd4e-8dbf885cc054" width=320> | 틀린 비밀번호를 입력하면 로그인에 실패합니다. |
+| <img src="https://github.com/user-attachments/assets/2ea07755-4bbe-4424-bfba-c54a33c86cc9" width=320> | 1. 로그인 정보 저장에 체크하고 로그인합니다.<br>2. 앱을 종료한 후 재시작한 뒤 `시작하기`를 누르면 저장된 회원정보로 로그인됩니다.<br>3. 로그아웃을 누르면 저장된 정보가 삭제됩니다. |
