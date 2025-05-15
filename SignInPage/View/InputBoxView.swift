@@ -29,6 +29,7 @@ class InputBoxView: UIStackView {
         textField.font = .preferredFont(forTextStyle: .body)
         textField.backgroundColor = .systemGray6
         textField.layer.cornerRadius = 4
+        textField.autocapitalizationType = .none
         
         return textField
     }()

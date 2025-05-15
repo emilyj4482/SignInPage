@@ -31,7 +31,7 @@ class SignInViewController: UIViewController {
     }
     
     private func setupContainerView() {
-        containerView.setupTextFieldDelegate(with: self)
+        containerView.setupTextFields(delegate: self)
         containerView.setupSignInButton(delegate: self)
     }
     
@@ -48,6 +48,7 @@ class SignInViewController: UIViewController {
 }
 
 extension SignInViewController: UITextFieldDelegate {
+    // textfield 입력값이 변할 때마다 호출 : 모든 필드에 입력값이 있어야 로그인 버튼 활성화
     func textFieldDidChangeSelection(_ textField: UITextField) {
         guard
             !containerView.emailText.isEmpty,
@@ -58,6 +59,16 @@ extension SignInViewController: UITextFieldDelegate {
         }
         
         containerView.toggleSignInbuttonEnabled(to: true)
+    }
+    
+    // keyboard return tap 시 호출 : 다음 입력창으로 이동 (마지막 입력창일 경우 keyboard dismiss)
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case containerView.emailTextField:
+            containerView.passwordTextField.becomeFirstResponder()
+        default:
+            textField.resignFirstResponder()
+        }
     }
 }
 

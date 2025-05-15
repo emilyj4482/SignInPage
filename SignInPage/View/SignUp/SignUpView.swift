@@ -32,7 +32,7 @@ class SignUpView: UIView {
     // 회원가입 버튼
     private lazy var signUpButton: CustomButton = .init(buttonSort: .signUp)
     
-    /* controller에서 텍스트필트 입력값에 접근하기 위한 프로퍼티 */
+    /* controller에서 텍스트필드 입력값에 접근하기 위한 프로퍼티 */
     
     // 이메일 : 공백을 제거한 뒤 반환
     var emailText: String {
@@ -51,6 +51,24 @@ class SignUpView: UIView {
     // 닉네임 : 공백을 제거한 뒤 반환
     var nicknameText: String {
         return nicknameInputBox.text.replacingOccurrences(of: " ", with: "")
+    }
+    
+    /* controller에서 텍스트필드에 접근하기 위한 프로퍼티 */
+    
+    var emailTextField: UITextField {
+        return emailInputBox.textField
+    }
+    
+    var passwordTextField: UITextField {
+        return passwordInputBox.textField
+    }
+    
+    var passwordConfirmationTextField: UITextField {
+        return passwordConfirmationInputBox.textField
+    }
+    
+    var nicknameTextField: UITextField {
+        return nicknameInputBox.textField
     }
     
     override init(frame: CGRect) {

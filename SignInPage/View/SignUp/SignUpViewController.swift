@@ -92,6 +92,20 @@ extension SignUpViewController: UITextFieldDelegate {
         
         return true
     }
+    
+    // keyboard return tap 시 호출 : 다음 입력창으로 이동 (마지막 입력창일 경우 keyboard dismiss)
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case containerView.emailTextField:
+            containerView.passwordTextField.becomeFirstResponder()
+        case containerView.passwordTextField:
+            containerView.passwordConfirmationTextField.becomeFirstResponder()
+        case containerView.passwordConfirmationTextField:
+            containerView.nicknameTextField.becomeFirstResponder()
+        default:
+            textField.resignFirstResponder()
+        }
+    }
 }
 
 extension SignUpViewController: SignUpDelegate {

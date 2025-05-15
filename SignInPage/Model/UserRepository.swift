@@ -84,7 +84,7 @@ extension UserRepository {
         
         do {
             let entites = try context.fetch(request)
-            print("[Core Data] email로 검색한 entity fetch 성공")
+            print("[Core Data] email로 검색한 entity \(entites.count)개 fetched")
             return entites.first
         } catch {
             print("[Core Data] fetch 실패")

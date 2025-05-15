@@ -58,7 +58,7 @@ class SignInView: UIView {
     
     private lazy var signInButton: CustomButton = .init(buttonSort: .signIn)
     
-    /* controller에서 텍스트필트 입력값에 접근하기 위한 프로퍼티 */
+    /* controller에서 텍스트필드 입력값에 접근하기 위한 프로퍼티 */
     
     // 이메일 : 공백을 제거한 뒤 반환
     var emailText: String {
@@ -68,6 +68,15 @@ class SignInView: UIView {
     // 비밀번호 : 공백을 제거하지 않고 반환
     var passwordText: String {
         return passwordInputBox.text
+    }
+    
+    /* 텍스트필드에 접근하기 위한 프로퍼티 */
+    var emailTextField: UITextField {
+        return emailInputBox.textField
+    }
+    
+    var passwordTextField: UITextField {
+        return passwordInputBox.textField
     }
     
     // 로그인 정보 저장 여부
@@ -92,9 +101,10 @@ class SignInView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupTextFieldDelegate(with delegate: UITextFieldDelegate) {
-        emailInputBox.textField.delegate = delegate
-        passwordInputBox.textField.delegate = delegate
+    func setupTextFields(delegate: UITextFieldDelegate) {
+        emailTextField.delegate = delegate
+        passwordTextField.delegate = delegate
+        passwordTextField.returnKeyType = .done
     }
     
     func setupSignInButton(delegate: SignInDelegate) {
