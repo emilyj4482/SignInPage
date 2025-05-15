@@ -42,3 +42,11 @@
 | <img src="https://github.com/user-attachments/assets/4380a42b-d07b-4ad6-824f-83cea898b6f6" width=400> |
 
 ## 기능 테스트 화면
+| | |
+| ----- | ----- |
+| <img src="https://github.com/user-attachments/assets/6c06a68e-146c-433a-984e-127c19f542b7" width=320> | 1. `CoreData`에 저장된 회원정보가 0개이므로, `회원가입 화면`으로 이동합니다.<br>2. 키보드의 `next` 키를 누르면 다음 입력창으로 이동하고, `done` 키를 누르면 키보드가 내려갑니다.<br>3. 모든 텍스트필드에 입력값을 추가하고 비밀번호가 일치해야 회원가입 버튼이 활성화됩니다. |
+| <img src="https://github.com/user-attachments/assets/bdd399b0-6ed7-40ae-bd7a-14af65c8fbef" width=320> | - 텍스트필드 이외 영역을 누르면 키보드가 내려가도록 처리했습니다.<br><br><b>[이메일 유효성 검사 시나리오]</b><br>1. 아이디는 이메일 주소여야 합니다. (@와 .포함한 형태)<br>2. @ 이전 영역의 글자수가 6자 이상이어야 합니다.<br>3. 숫자로 시작할 수 없습니다.<br>4. 영문 대문자를 포함할 수 없습니다.<br>5. @ 이전 영역의 글자수가 20자 이하여야 합니다.<br><br>- 올바른 형태(`test123@gmail.com`)를 입력하니 유효성 검사에 통과하여 비밀번호 검사로 넘어간 것을 alert 메시지를 통해 확인할 수 있습니다. |
+| <img src="https://github.com/user-attachments/assets/f4cf27b1-bb33-4cfb-a711-f9322a7ce32c" width=320> | 1. 비밀번호는 8자 이상이어야 합니다.<br>2. 닉네임은 2자 이상 8자 이하여야 합니다.<br>3. 모든 유효성 검사를 통과하면 회원가입이 완료되며 `로그인 성공 화면`으로 넘어갑니다. |
+| <img src="https://github.com/user-attachments/assets/5204583f-1981-4116-b841-299c34f92aa3" width=320> | 1. `로그인 성공 화면`에는 사용자의 `닉네임`이 표시됩니다.<br>2. `로그아웃` 버튼을 누르면 `시작하기 화면`으로 돌아갑니다.<br>3. 이미 가입했던 이메일로 가입을 시도하면 중복 검사에 걸려 실패합니다. |
+| <img src="https://github.com/user-attachments/assets/6bd2d401-8f11-4bff-be03-ae46150008d4" width=320> | 1. 중복되지 않은 이메일로 새 계정을 생성합니다.<br>2. 회원탈퇴를 한 뒤 로그인 시도하면 존재하지 않는 아이디기 때문에 로그인에 실패합니다. |
+| <img src="https://github.com/user-attachments/assets/e8a6ad7b-42be-4730-bd4e-8dbf885cc054" width=320> | 틀린 비밀번호를 입력하면 로그인에 실패합니다. |
