@@ -145,6 +145,7 @@ extension SignUpViewController: SignUpDelegate {
         let emailTextArray = containerView.emailText.map({ $0 })
         
         // 이메일 검사 1 : 아이디는 이메일 주소여야 합니다. >> 영문 소문자와 숫자 조합만 허용, 입력값의 처음과 끝이 알파벳 소문자, @와 .가 한개씩만 존재
+        // + @와 .의 index 간격이 2 이상이어야 함
         guard
             let first = emailTextArray.first,
             let last = emailTextArray.last,
@@ -152,7 +153,10 @@ extension SignUpViewController: SignUpDelegate {
             last.isLowercase &&
             emailTextArray.filter({ $0 == "@" }).count == 1 &&
             emailTextArray.filter({ $0 == "." }).count == 1 &&
-            emailTextArray.filter({ $0 != "@" && $0 != "." && !$0.isLowercase && !$0.isNumber}).count == 0
+            emailTextArray.filter({ $0 != "@" && $0 != "." && !$0.isLowercase && !$0.isNumber}).count == 0,
+            let dotIndex = emailTextArray.firstIndex(of: "."),
+            let atIndex = emailTextArray.firstIndex(of: "@"),
+            dotIndex - atIndex > 1
         else {
             return .invalidEmail
         }
