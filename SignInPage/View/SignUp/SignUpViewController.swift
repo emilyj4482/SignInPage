@@ -123,6 +123,8 @@ extension SignUpViewController: SignUpDelegate {
         
         if validationResult == .valid {
             createUser()
+            // alert dismiss와 navigation push 사이에 키보드가 잠깐 올라오는 현상 방지
+            containerView.endEditing(true)
             alert.addAction(success)
         } else {
             alert.addAction(fail)
